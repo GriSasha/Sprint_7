@@ -1,6 +1,7 @@
 import requests
 import random
 import string
+import allure
 
 from data import UrlApi
 
@@ -18,6 +19,7 @@ def generate_courier_payload():
 
 # метод регистрации нового курьера возвращает список из логина и пароля
 # если регистрация не удалась, возвращает пустой список
+@allure.step('Отправляем post-запрос на регистрацию курьера со случайными логином, паролем и firstName и сохраняем ответ в переменную response')
 def register_new_courier_and_return_login_password():
 
     # создаём список, чтобы метод мог его вернуть
@@ -46,14 +48,15 @@ def register_new_courier_and_return_login_password():
     # возвращаем список
     return login_pass 
 
+@allure.step('Отправляем post-запрос на создание курьера')
 def create_courier(payload):
     return requests.post(UrlApi.create_courier_api, data=payload)
 
-
+@allure.step('Отправляем post-запрос на вход в учетную запись курьера')
 def login_courier(payload):
     return requests.post(UrlApi.login_courier_api, data=payload)
 
-
+@allure.step('Отправляем delete-запрос, чтобы удалить курьера из базы данных')
 def delete_courier(courier_id):
     return requests.delete(f'{UrlApi.url}/courier/{courier_id}')
 
