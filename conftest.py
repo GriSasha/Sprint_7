@@ -13,17 +13,13 @@ def courier_payload():
 
 
 @pytest.fixture
-def registered_courier():
-    courier_data = register_new_courier_and_return_login_password()
+def registered_courier(courier_payload):
+    courier_data = register_new_courier_and_return_login_password(courier_payload)
 
-    login = courier_data[0]
-    password = courier_data[1]
-    firstName = courier_data[2]
+    yield courier_data
 
-    yield {
-        'login': login,
-        'password': password,
-        'firstName': firstName
-    }
-
-    delete_courier_by_login_and_password(login, password)
+    if courier_data is not None:
+        delete_courier_by_login_and_password(courier_data['login'], 
+                                             courier_data['password'])
+        
+        

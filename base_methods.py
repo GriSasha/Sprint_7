@@ -19,34 +19,17 @@ def generate_courier_payload():
 
 # метод регистрации нового курьера возвращает список из логина и пароля
 # если регистрация не удалась, возвращает пустой список
-@allure.step('Отправляем post-запрос на регистрацию курьера со случайными логином, паролем и firstName и сохраняем ответ в переменную response')
-def register_new_courier_and_return_login_password():
+@allure.step('Отправляем post-запрос на регистрацию курьера со случайными логином, паролем и firstName ' \
+'и сохраняем ответ в переменную response')
+def register_new_courier_and_return_login_password(courier_payload):
 
-    # создаём список, чтобы метод мог его вернуть
-    login_pass = []
+    response = create_courier(courier_payload)
 
-    login = generate_random_string(10),
-    password = generate_random_string(10),
-    firstName = generate_random_string(10)
-
-    # собираем тело запроса
-    payload = {
-        "login": login,
-        "password": password,
-        "firstName": firstName
-    }
-
-    # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
-    response = requests.post(UrlApi.create_courier_api, data=payload)
-
-    # если регистрация прошла успешно (код ответа 201), добавляем в список логин и пароль курьера
     if response.status_code == 201:
-        login_pass.append(login)
-        login_pass.append(password)
-        login_pass.append(firstName)
+        return courier_payload
 
-    # возвращаем список
-    return login_pass 
+    return None
+
 
 @allure.step('Отправляем post-запрос на создание курьера')
 def create_courier(payload):
