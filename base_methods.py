@@ -21,11 +21,11 @@ def register_new_courier_and_return_login_password(courier_payload):
 
 @allure.step('Отправляем post-запрос на создание курьера')
 def create_courier(payload):
-    return requests.post(UrlApi.create_courier_api, data=payload)
+    return requests.post(UrlApi.create_courier_api, json=payload)
 
 @allure.step('Отправляем post-запрос на вход в учетную запись курьера')
 def login_courier(payload):
-    return requests.post(UrlApi.login_courier_api, data=payload)
+    return requests.post(UrlApi.login_courier_api, json=payload)
 
 @allure.step('Отправляем delete-запрос, чтобы удалить курьера из базы данных')
 def delete_courier(courier_id):
@@ -43,4 +43,3 @@ def delete_courier_by_login_and_password(login, password):
     if response.status_code == 200:
         courier_id = response.json()['id']
         delete_courier(courier_id)
-        
