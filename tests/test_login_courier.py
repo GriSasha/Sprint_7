@@ -1,7 +1,8 @@
 import allure
 import pytest
 
-from base_methods import login_courier, generate_courier_payload
+from base_methods import login_courier 
+from helpers import generate_courier_payload
 from data import Response
 
 

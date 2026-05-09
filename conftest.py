@@ -2,9 +2,10 @@ import pytest
 
 from base_methods import (
     register_new_courier_and_return_login_password,
-    delete_courier_by_login_and_password,
-    generate_courier_payload
-)
+    delete_courier_by_login_and_password)
+    
+from helpers import generate_courier_payload
+
 
 
 @pytest.fixture
@@ -21,5 +22,4 @@ def registered_courier(courier_payload):
     if courier_data is not None:
         delete_courier_by_login_and_password(courier_data['login'], 
                                              courier_data['password'])
-        
         

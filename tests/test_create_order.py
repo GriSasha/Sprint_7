@@ -3,7 +3,7 @@ import pytest
 import requests
 
 from data import UrlApi
-from base_methods import get_order_payload
+from helpers import get_order_payload
 
 
 class TestCreateOrder:
